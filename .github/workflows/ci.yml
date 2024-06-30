@@ -1,0 +1,20 @@
+name: CI
+
+on: push
+
+jobs:
+  scan:
+    name: Scan
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Build Image
+      run: |
+        docker build . -t my-image-tag
+        docker save -o image.tar my-image-tag
+    - name: Scan Image
+      uses: aquasecurity/trivy-action@0.23.0
+      with:
+        input: /github/workspace/image.tar
+        severity: 'CRITICAL,HIGH'
