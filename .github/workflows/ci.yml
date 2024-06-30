@@ -18,3 +18,4 @@ jobs:
       with:
         input: /github/workspace/image.tar
         severity: 'CRITICAL,HIGH'
+        # TODO: Add exit-code: 1 to fail pipeline if image contains vulnerabilities
